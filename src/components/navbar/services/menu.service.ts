@@ -1,3 +1,4 @@
+"use client"
 import { gql } from "@apollo/client";
 import { getClient } from "@/lib/client";
 import { useSuspenseQuery } from "@apollo/client";
@@ -25,12 +26,40 @@ const menuQuery = gql`{
     }
   }
 }`
-export async function getMenuItems () {
-  const {data} = await useSuspenseQuery(menuQuery)
 
-  console.log(data);
+interface Data {
+  menus: Menus;
+}
 
-  return data
+interface Menus {
+  nodes: menuNode[];
+}
+
+interface menuNode {
+  slug: string;
+  name: string;
+  count: number;
+  menuItems: MenuItems;
+}
+
+interface MenuItems {
+  nodes: Node[];
+}
+
+interface Node {
+  url: string;
+  label: string;
+}
+
+export function getMenuItems () {
+  // const {data} = useSuspenseQuery(menuQuery)
+
+  // console.log(data);
+  // const res = {
+  //   url : data
+  // }
+
+  // return data;
   
 
 }
